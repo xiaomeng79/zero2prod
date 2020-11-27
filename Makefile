@@ -33,7 +33,7 @@ fmt:
 fmtcheck:
 	@echo "test code format check start"
 	@rustup component add rustfmt
-	@cargo fmt --all --check
+	@cargo fmt -- --check
 	@echo "test code format check end"
 
 audit:
@@ -43,8 +43,7 @@ audit:
 	@echo "test code audit end"
 
 ci: toolinstall test coverage linting fmtcheck audit
-	@echo "ci start"
-	@echo "ci end"
+
 
 .PHONY : ci test coverage linting fmt fmtcheck audit
 
