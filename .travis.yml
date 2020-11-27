@@ -1,0 +1,15 @@
+language: rust
+cache: cargo
+rust:
+  - stable
+before_cache: |
+  cargo install cargo-tarpaulin
+before_script:
+  - make toolinstall
+# As a result of https://github.com/travis-ci/travis-ci/issues/1066, we run
+# everything in one large command instead of multiple commands.
+# In this way, the build stops immediately if one of the commands fails.
+script: |
+  make ci
+after_success: |
+  make coverage

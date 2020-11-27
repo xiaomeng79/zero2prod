@@ -33,7 +33,7 @@ fmt:
 fmtcheck:
 	@echo "test code format check start"
 	@rustup component add rustfmt
-	@cargo fmt -- --check
+	@cargo fmt --all --check
 	@echo "test code format check end"
 
 audit:
