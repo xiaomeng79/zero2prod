@@ -1,5 +1,8 @@
-fn main() {
-    // let a = 8u8;
-    println!("Hello, world! ");
-    println!("Hello, world2! ");
+use std::net::TcpListener;
+use zero2prod::run;
+
+#[actix_rt::main]
+async fn main() -> std::io::Result<()> {
+    let listener = TcpListener::bind("127.0.0.1:8000")?;
+    run(listener)?.await
 }

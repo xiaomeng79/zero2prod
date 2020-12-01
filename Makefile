@@ -27,7 +27,7 @@ linting:
 fmt:
 	@echo "test code format  start"
 	@rustup component add rustfmt
-	@cargo fmt ./...
+	@cargo fmt
 	@echo "test code format  end"
 
 fmtcheck:
