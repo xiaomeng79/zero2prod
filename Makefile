@@ -42,6 +42,14 @@ audit:
 	@cargo audit
 	@echo "test code audit end"
 
+initdb:
+	@echo "launch postgres"
+	@chmod +x scripts/init_db.sh && scripts/init_db.sh
+
+migrationdb:
+	@echo "launch migration db"
+	@chmod +x scripts/init_db.sh && SKIP_DOCKER=true scripts/init_db.sh
+
 ci: toolinstall test coverage linting fmtcheck audit
 
 
