@@ -10,6 +10,8 @@ before_script:
 # everything in one large command instead of multiple commands.
 # In this way, the build stops immediately if one of the commands fails.
 script: |
-  make ci
+  linting
+  fmtcheck
+  audit
 after_success: |
   make coverage
