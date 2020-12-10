@@ -1,0 +1,55 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:13.1-alpine
+#    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+     - db-data:/var/lib/postgresql/data
+#  sqlx-bak:
+#    image: spebern/sqlx-cli:0.2.0
+#    depends_on:
+#      - postgres
+#    environment:
+#      SKIP_DOCKER: 'true'
+#      DB_HOST: postgres
+#      DB_USER: postgres
+#      DB_PASSWORD: password
+#      DB_NAME: newsletter
+#      DB_PORT: 5432
+#    volumes:
+#      - ./migrations/:/opt/migrations/
+#      - ./scripts/init_db.sh:/opt/init_db.sh
+#    command: ["/opt/init_db.sh"]
+  sqlx:
+    build:
+      context: ./
+      dockerfile: Dockerfile-sqlx
+    depends_on:
+      - postgres
+    environment:
+      SKIP_DOCKER: 'true'
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: newsletter
+      DB_PORT: 5432
+
+  zero2prod:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+#    restart: always
+    depends_on:
+      - postgres
+      - sqlx
+    environment:
+      APP_DATABASE__HOST: postgres
+      APP_DATABASE__PASSWORD: password
+      APP_DATABASE__DATABASE_NAME: newsletter
+    ports:
+      - '8080:8000'
+volumes:
+  db-data:

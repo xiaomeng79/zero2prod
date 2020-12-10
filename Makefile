@@ -50,9 +50,33 @@ migrationdb:
 	@echo "launch migration db"
 	@chmod +x scripts/init_db.sh && SKIP_DOCKER=true scripts/init_db.sh
 
+dockerbuild:
+	@echo "docker build start"
+	@docker build --tag zero2prod --file Dockerfile .
+	@echo "docker build end"
+
+dockercompose-up:
+	@echo "docker compose up"
+	@docker-compose up --build
+dockercompose-stop:
+	@echo "docker compose up"
+	@docker-compose stop
+
+sqlx-cli:
+	@echo "install sqlx-cli"
+	@cargo install --version=0.2.0 sqlx-cli --no-default-features --features postgres
+
+sqlx-prepare:
+	@echo "sqlx prepare"
+	@cargo sqlx prepare -- --bin zero2prod
+
+sqlx-check:
+	@echo "sqlx prepare check"
+	@cargo sqlx prepare --check -- --bin zero2prod
+
 ci: toolinstall test coverage linting fmtcheck audit
 
 
-.PHONY : ci test coverage linting fmt fmtcheck audit
+.PHONY : ci test coverage linting fmt fmtcheck audit migrationdb dockerbuild dockercompose-up dockercompose-stop sqlx-cli sqlx-prepare sqlx-check
 
 

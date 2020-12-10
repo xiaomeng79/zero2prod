@@ -1,0 +1,16 @@
+FROM rust:1.48
+
+WORKDIR app
+
+COPY ./scripts/init_db.sh ./init_db.sh
+COPY ./migrations/ ./migrations
+
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends postgresql-client \
+    # Clean up
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+RUN cargo install --version=0.2.0 sqlx-cli --no-default-features --features postgres
+
+
+ENTRYPOINT ["/app/init_db.sh"]
