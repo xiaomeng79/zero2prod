@@ -6,8 +6,8 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
-    volumes:
-     - db-data:/var/lib/postgresql/data
+#    volumes:
+#     - db-data:/var/lib/postgresql/data
 #  sqlx-bak:
 #    image: spebern/sqlx-cli:0.2.0
 #    depends_on:
@@ -52,5 +52,5 @@ services:
       APP_DATABASE__REQUIRE_SSL: 'false'
     ports:
       - '8080:8000'
-volumes:
-  db-data:
+#volumes:
+#  db-data:
