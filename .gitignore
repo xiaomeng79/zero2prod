@@ -1,2 +1,6 @@
 /target
-.idea
+# Project and editor files
+.vscode/
+.idea/
+*.vim
+*.vi
