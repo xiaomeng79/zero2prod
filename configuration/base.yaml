@@ -9,3 +9,7 @@ database:
   password: "password"
   database_name: "newsletter"
   require_ssl: false
+email_client:
+  base_url: "localhost"
+  sender_email: "test@gamil.com"
+  authorization_token: "my-secret-token"
