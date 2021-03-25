@@ -12,6 +12,3 @@ before_script:
 script: |
   make linting
   make fmtcheck
-  make audit
-after_success: |
-  make coverage
